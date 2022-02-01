@@ -3,6 +3,9 @@ package com.example.springboot_learning.github;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.example.springboot_learning.GithubProperties;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -35,6 +38,10 @@ public class GithubClient {
 		return this.restTemplate.getForEntity(EVENT_ISSUES_URL, RepositoryEvent[].class, orgName, repoName);
 	}
 
+  public List<RepositoryEvent> fetchEventsList(String orgName, String repoName) {
+		return Arrays.asList(fetchEvents(orgName, repoName).getBody());
+	}
+  
   private static class GithubAppTokenInterceptor implements ClientHttpRequestInterceptor {
 
 		private final String token;
